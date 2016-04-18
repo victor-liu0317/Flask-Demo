@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Home</title>
+	<link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
+	<style type="text/css">
+	*{padding: 0;margin: 0;}
+	#header{width: 100%;background: #212326; height: 50px; position: fixed; top:0;}
+	#header input{width: 150px; height: 30px;float: left;margin-top: 10px;margin-right: 10px;}
+	#header button{height: 30px; width: 100px; margin-top: 10px;margin-right: 10px;font-family: serif;font-weight: bold; padding-top: 5px;}
+	#header button span{margin-right: 5px;}
+	.mytext{color: white; float: left;font-size: 20px;margin-top: 10px;margin-right: 10px;}
+    input{line-height: 30px; font-size: 30px;}
+	#myCarousel{width: 100%;height:725px;margin-top: 50px; overflow: hidden;}
+	#myCarousel img{margin-top: -100px;}
+	</style>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<form role="form" action="/signin" method="post" autocomplete="off">
+		<div id="header" class="form-group">
+			<div class="mytext">Username:</div>
+			<input type="text" class="form-control" name="username" required="required" placeholder="username"/>
+			<div class="mytext">Password:</div>
+			<input type="password" class="form-control" name="password" required="required" placeholder="password"/>
+			<button type="submit" class="btn btn-primary">
+			<span class="glyphicon glyphicon-user"></span>Login</button>
+			<button type="button" class="btn btn-default" id="myRegister-Btn">
+			<span class="glyphicon glyphicon-star"></span>Register</button>
+		</div>
+	</form>
+
+	<div id="myCarousel" class="carousel slide">
+	   <!-- 轮播（Carousel）指标 -->
+	   <ol class="carousel-indicators">
+	      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+	      <li data-target="#myCarousel" data-slide-to="1"></li>
+	      <li data-target="#myCarousel" data-slide-to="2"></li>
+	      <li data-target="#myCarousel" data-slide-to="3"></li>
+	   </ol>   
+	   <!-- 轮播（Carousel）项目 -->
+	   <div class="carousel-inner">
+	      <div class="item active">
+	         <img src="/static/images/1.jpg" alt="First slide">
+	      </div>
+	      <div class="item">
+	         <img src="/static/images/2.jpg" alt="Second slide">
+	      </div>
+	      <div class="item">
+	         <img src="/static/images/3.jpg" alt="Third slide">
+	      </div>
+	      <div class="item">
+	         <img src="/static/images/4.jpg" alt="Third slide">
+	      </div>
+	   </div>
+	   <!-- 轮播（Carousel）导航 -->
+	   <a class="carousel-control left" href="#myCarousel" 
+	      data-slide="prev">&lsaquo;</a>
+	   <a class="carousel-control right" href="#myCarousel" 
+	      data-slide="next">&rsaquo;</a>
+	</div> 
+	
+	{% if message %}
+  	<div class="modal fade" id="myModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Attention</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>{{ message }}</p>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+  	{% endif %}
+	
+	<script type="text/javascript">
+		$(function(){
+			$("#myCarousel").carousel('cycle');
+			$("#myModal").modal('show');
+            $("#myRegister-Btn").click(function(){
+                window.location.href = 'http://127.0.0.1:5000/register';
+            });
+		})
+	</script>
+</body>
+</html>
