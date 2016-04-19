@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
+    <style type="text/css">
+        form{width: 500px;margin: 50px auto;border: 1px solid navy;-moz-border-radius: 15px;-webkit-border-radius: 15px;border-radius:15px;padding: 15px;}
+        button{width: 100px;}
+    </style>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+<form action="/register" method="post" autocomplete="off">
+  <div class="form-group">
+    <label for="username">Username:</label>
+    <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+  </div>
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" class="form-control" name="password" placeholder="Password" required="required" id="psw1">
+  </div>
+    <div class="form-group">
+    <label for="confirm-password">Confirm-Password:</label>
+    <input type="password" class="form-control" name="confirm-password" placeholder="Password" required="required" id="psw2">
+  </div>
+  <button type="submit" class="btn btn-primary" id="myBtn">注册</button>
+</form>
+{% if message %}
+  	<div class="modal fade" id="myModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Attention</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>{{ message }}</p>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+{% endif %}
+<script type="text/javascript">
+    $(function(){
+        $("#myModal").modal('show');
+       $('#myBtn').click(function(){
+           var str1 = $('#psw1').val();
+           var str2 = $('#psw2').val();
+           if(str1 == str2){
+               return
+           }
+           else{
+               alert('两次输入的密码不同！');
+               $('#psw1').val('');
+               $('#psw2').val('');
+               return false;
+           }
+       })
+    })
+</script>
+</body>
+</html>
