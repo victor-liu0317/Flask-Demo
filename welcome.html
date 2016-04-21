@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
+    <style type="text/css">
+        *{margin: 0;}
+        #myBtn{float: right; margin-top: 10px;}
+        .jumbotron{margin:50px auto 0; width: 1000px;}
+        .jumbotron button{width: 100px; height: 50px;font-size: 20px;}
+        .panel{width: 1000px;margin: 10px auto;}
+        .container{margin-bottom: 0;}
+        textarea{font-size: 20px;}
+    </style>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+       <div class="jumbotron">
+           <h1>欢迎你！<span id="myusername">{{ username }}</span></h1>
+           <p>写下你想说的话：</p>
+           <textarea class="form-control" rows="8" name="mytext" id="mycomment"></textarea>
+           <p><button  class="btn btn-primary" id="myBtn">Save</button></p>
+       </div>
+</div>
+<div id="commentBox"></div>
+
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            url:"/comment",
+            dataType:'html',
+            success:function(data){
+                        $('#commentBox').html(data)
+                    },
+            error:function(){alert('Ajax error')}
+        });
+        $("#myBtn").click(function(){
+            //保证填写的textarea不为空
+            if($('#mycomment').text() == ""){
+                alert('你得写点什么吧？');
+                return false;
+            }
+            //获取时间
+            var myDate = new Date();
+		    var year = myDate.getFullYear();
+		    var month = myDate.getMonth()+1;
+		    var date = myDate.getDate();
+		    var h = myDate.getHours();
+		    var m = myDate.getMinutes();
+		    var s = myDate.getSeconds();
+            mytime = year+"年"+month+"月"+date+"日"+h+":"+checkTime(m)+":"+checkTime(s);
+            var mydata = {
+                username : $('#myusername').text(),
+                time : mytime,
+                comment : $('#mycomment').val()
+            };
+            $.ajax({
+            url:"/comment",
+            data:mydata,
+            success:function(data){
+                        $('#commentBox').html(data);
+                        $('#mycomment').val("");
+                        alert("保存成功！");
+                    },
+            error:function(){alert('Ajax error')}
+        });
+        })
+        function checkTime(i){	//当分钟和秒数为个位数时在前面加个‘0’
+            if(i<10){
+                i = "0"+i;
+            }
+            return i;
+	    }
+    })
+
+</script>
+</body>
+</html>
