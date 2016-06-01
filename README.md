@@ -1,2 +1,2 @@
 # flaskDemo
-一个使用python的flask框架写的程序
+使用python的flask框架写的程序
